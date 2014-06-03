@@ -89,21 +89,6 @@ for($i=0;$i<64;$i++){
 		echo "(assert (= e_". ($i+1)."_2 (bvadd ". ae_fill($i,"d",2)." (bvadd (bvadd (bvadd ". ae_fill($i,"h",2)." #x". $k[($i)] .") (bvadd ". w_fill($i,2) ." (bvxor (bvxor ((_ rotate_right 6) ". ae_fill($i,"e",2).") ((_ rotate_right 11) ". ae_fill($i,"e",2).")) ((_ rotate_right 25) ". ae_fill($i,"e",2).")))) (bvxor (bvand ". ae_fill($i,"e",2)." ". ae_fill($i,"f",2).") (bvand (bvnot ". ae_fill($i,"e",2).") ". ae_fill($i,"g",2).")))) ))\n\n";
 }
 
-//TODO - create target code...
-
-//echo "(assert (= a_64_2 (bvsub #x".$hash[0]." #x".$hi[0].")))\n";
-//echo "(assert (= a_63_2 (bvsub #x".$hash[1]." #x".$hi[1].")))\n";
-//echo "(assert (= a_62_2 (bvsub #x".$hash[2]." #x".$hi[2].")))\n";
-//echo "(assert (= a_61_2 (bvsub #x".$hash[3]." #x".$hi[3].")))\n";
-//echo "(assert (= e_64_2 (bvsub #x".$hash[4]." #x".$hi[4].")))\n";
-//echo "(assert (= e_63_2 (bvsub #x".$hash[5]." #x".$hi[5].")))\n";
-//echo "(assert (= e_62_2 (bvsub #x".$hash[6]." #x".$hi[6].")))\n";
-//echo "(assert (= e_61_2 (bvsub #x".$hash[7]." #x".$hi[7].")))\n";
-
-
-
-
-
 
 for($i=0;$i<8;$i++){
 	echo "(declare-fun hash_".$i." () (_ BitVec 32))\n";
@@ -114,16 +99,17 @@ for($i=0;$i<8;$i++){
 	}
 }
 
-//echo "(declare-fun x () (_ BitVec 4))\n";
-//echo "(declare-fun y () (_ BitVec 28))\n";
+//echo "(declare-fun x () (_ BitVec 16))\n";
+//echo "(declare-fun y () (_ BitVec 16))\n";
+//echo "(assert (= y #x". substr($message[3],0,4)."))\n";
 //echo "(assert (= x #x0))\n";
-//echo "(assert (= hash_7 (concat y x)))\n";
+//echo "(assert (= w_3_1 (concat y x)))\n";
 
 echo "(assert (= hash_7 #x00000000))\n";
 
 echo "\n";
 
-$spread = 0x1;
+$spread = 0x2C00;
 
 $before = str_pad(dechex(hexdec($message_step1[3])-$spread),8,"0",STR_PAD_LEFT);
 echo "(assert (bvuge w_3_1 #x".$before."))\n";
